@@ -15,6 +15,7 @@
 @synthesize path        = _path;
 @synthesize error       = _error;
 @synthesize library     = _library;
+@synthesize saveToLibraryCompletionHandler = _saveToLibraryCompletionHandler;
 
 #pragma mark - Init
 
@@ -43,6 +44,8 @@
             self.path = assetURL;
             self.error = error;
             self.complete = true;
+          if (self.saveToLibraryCompletionHandler)
+            self.saveToLibraryCompletionHandler();
         }];
     }
 }

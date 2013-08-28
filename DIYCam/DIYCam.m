@@ -104,12 +104,12 @@
     _diyAV.captureMode = mode;
 }
 
-- (BOOL)getFlash
+- (DIYAVFlashMode)getFlash
 {
     return _diyAV.flash;
 }
 
-- (void)setFlash:(BOOL)flash
+- (void)setFlash:(DIYAVFlashMode)flash
 {
     [_diyAV setFlash:flash];
 }
@@ -143,7 +143,7 @@
 
 - (void)AVAttachPreviewLayer:(CALayer *)layer
 {
-    layer.frame = self.frame;
+  layer.frame = self.bounds;
     [self.layer addSublayer:layer];
 }
 
@@ -195,11 +195,11 @@
                 // Save to asset library
                 if (shouldSaveToLibrary) {
                     DIYCamLibraryImageOperation *lop = [[DIYCamLibraryImageOperation alloc] initWithData:imageData];
-                    [lop setCompletionBlock:^{
-                        if (lop.complete) {
-                            [_delegate camCaptureLibraryOperationComplete:self];
-                        }
-                    }];
+                  lop.saveToLibraryCompletionHandler = ^ {
+                    if (lop.complete) {
+                      [_delegate camCaptureLibraryOperationComplete:self withAsset:@{@"asseturl":lop.path}];
+                    }
+                  };
                     [_queue addOperation:lop];
                 }
                 
@@ -245,7 +245,7 @@
                         DIYCamLibraryVideoOperation *lOp = [[DIYCamLibraryVideoOperation alloc] initWithURL:outputFileURL];
                         [lOp setCompletionBlock:^{
                             if (lOp.complete) {
-                                [_delegate camCaptureLibraryOperationComplete:self];
+                                [_delegate camCaptureLibraryOperationComplete:self withAsset:nil];
                             }
                         }];
                         [_queue addOperation:lOp];

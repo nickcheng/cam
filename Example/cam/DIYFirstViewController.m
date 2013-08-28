@@ -105,12 +105,12 @@
 
 - (IBAction)toggleFlash:(id)sender
 {
-    if ([self.cam getFlash]) {
-        [self.cam setFlash:false];
+    if ([self.cam getFlash] == DIYAVFlashModeOn) {
+        [self.cam setFlash:DIYAVFlashModeOff];
         [self.flash setTitle:@"Flash Off" forState:UIControlStateNormal];
     }
-    else {
-        [self.cam setFlash:true];
+    else if ([self.cam getFlash] == DIYAVFlashModeOff){
+        [self.cam setFlash:DIYAVFlashModeOn];
         [self.flash setTitle:@"Flash On" forState:UIControlStateNormal];
     }
 }

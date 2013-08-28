@@ -26,8 +26,8 @@
 - (BOOL)getRecordingStatus;
 - (DIYAVMode)getCamMode;
 - (void)setCamMode:(DIYAVMode)mode;
-- (BOOL)getFlash;
-- (void)setFlash:(BOOL)flash;
+- (DIYAVFlashMode)getFlash;
+- (void)setFlash:(DIYAVFlashMode)flash;
 - (void)flipCamera;
 
 #pragma mark - Capture
@@ -53,7 +53,7 @@
 - (void)camCaptureStopped:(DIYCam *)cam;
 - (void)camCaptureProcessing:(DIYCam *)cam;
 - (void)camCaptureComplete:(DIYCam *)cam withAsset:(NSDictionary *)asset;
-- (void)camCaptureLibraryOperationComplete:(DIYCam *)cam;
+- (void)camCaptureLibraryOperationComplete:(DIYCam *)cam withAsset:(NSDictionary *)asset;
 
 @end
 

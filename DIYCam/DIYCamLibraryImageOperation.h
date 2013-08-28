@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
+typedef void (^saveToLibraryCompletionBlock)();
+
 @interface DIYCamLibraryImageOperation : NSOperation
 {
     id dataset;
@@ -19,6 +21,7 @@
 @property NSURL             *path;
 @property NSError           *error;
 @property ALAssetsLibrary   *library;
+@property (nonatomic, copy) saveToLibraryCompletionBlock saveToLibraryCompletionHandler;
 
 - (id)initWithData:(id)data;
 
